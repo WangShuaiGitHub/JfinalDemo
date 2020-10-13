@@ -1,0 +1,5 @@
+# config
+jdbcUrl = jdbc:sqlserver://db.mingshi58.com;DatabaseName=oa;
+user = lijh
+password = lijh@18710689969
+devMode = true

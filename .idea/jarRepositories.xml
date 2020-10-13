@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="central_2" />
+      <option name="name" value="maven-neutralcloud" />
+      <option name="url" value="http://packages.glodon.com/artifactory/maven-neutralcloud-public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="ali-maven" />
+      <option name="name" value="ali-maven" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central_1" />
+      <option name="name" value="maven-tair-private" />
+      <option name="url" value="https://packages.glodon.com/artifactory/maven-tair-private" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="snapshots_2" />
+      <option name="name" value="maven-neutralcloud" />
+      <option name="url" value="http://packages.glodon.com/artifactory/maven-neutralcloud-public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="snapshots" />
+      <option name="name" value="maven-cloudtsdk-public" />
+      <option name="url" value="https://packages.glodon.com/artifactory/maven-cloudtsdk-public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="snapshots_1" />
+      <option name="name" value="maven-tair-private" />
+      <option name="url" value="https://packages.glodon.com/artifactory/maven-tair-private" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="maven-cloudtsdk-public" />
+      <option name="url" value="https://packages.glodon.com/artifactory/maven-cloudtsdk-public" />
+    </remote-repository>
+  </component>
+</project>
