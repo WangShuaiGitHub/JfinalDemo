@@ -11,11 +11,11 @@ import java.util.List;
  */
 public class EntMingShiService {
     public List<Record> getTaskType(){
-        List<Record> taskType= Db.use("sqlServer").find("select * from t_tree where type='21'");
+        List<Record> taskType= Db.use("sqlServer").find("select * from t_tree where type='21' order by sort asc");
         return taskType;
     }
     public List<Record> getProcessType(){
-        List<Record> processType= Db.use("sqlServer").find("select * from t_tree where type='24'");
+        List<Record> processType= Db.use("sqlServer").find("select * from t_tree where type='24' order by sort asc");
         return processType;
     }
 
