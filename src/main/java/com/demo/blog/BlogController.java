@@ -1,11 +1,15 @@
 package com.demo.blog;
 
 import com.demo.common.model.User;
+import com.demo.common.model.base.BaseUser;
+import com.demo.common.model.mysql.TmpTaskStandard;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Inject;
 import com.jfinal.core.Controller;
 import com.demo.common.model.Blog;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 
 import java.util.List;
 
@@ -25,11 +29,23 @@ public class BlogController extends Controller {
 	@Inject
 	UserService userService;
 
+	@Inject
+	EntMingShiService entMingShiService;
+
 	public void index() {
 //		Page<Blog> blocks =  service.paginate(getParaToInt(0, 1), 10);
-		List<User> blocks =  userService.getAll();
-		setAttr("blogPage", blocks);
-		render("blog.html");
+//		List<User> blocks =  userService.getAll();
+		List<Record> taskType = entMingShiService.getTaskType();
+		List<TmpTaskStandard> tmpTaskStandards = userService.getTmpTaskStandard();
+		List<Record> test = Db.use("mysql").find("select * from tmp_task_standard");
+//		for(User user: blocks){
+//			System.out.println(user.getDeptname());
+//			System.out.println(user.getMobile());
+////			System.out.println(user.getDeptname());
+////			System.out.println(user.getDeptname());
+//		}
+//		setAttr("blogPage", blocks);
+//		render("blog.html");
 	}
 	
 	public void add() {

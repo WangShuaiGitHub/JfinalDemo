@@ -2,4 +2,7 @@
 jdbcUrl = jdbc:sqlserver://db.mingshi58.com;DatabaseName=oa;
 user = lijh
 password = lijh@18710689969
+mySqljdbcUrl = jdbc:mysql://192.168.115.157:3306/ws_test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+mySqluser = dcp
+mySqlpassword = 1qaz@WSX
 devMode = true

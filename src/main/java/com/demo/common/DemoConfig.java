@@ -2,6 +2,7 @@ package com.demo.common;
 
 import com.demo.blog.BlogController;
 import com.demo.common.model._MappingKit;
+import com.demo.common.model.mysql._MySqlMappingKit;
 import com.demo.index.IndexController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -12,6 +13,7 @@ import com.jfinal.config.Routes;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.activerecord.dialect.SqlServerDialect;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.server.undertow.UndertowServer;
@@ -79,22 +81,43 @@ public class DemoConfig extends JFinalConfig {
 	 * 配置插件
 	 */
 	public void configPlugin(Plugins me) {
+
+		//配置mysql 数据库连接池插件
+		DruidPlugin mySqldruidPlugin = new DruidPlugin(p.get("mySqljdbcUrl"), p.get("mySqluser"), p.get("mySqlpassword"));
+		me.add(mySqldruidPlugin);
+
+		// 配置ActiveRecord插件
+		ActiveRecordPlugin mysql = new ActiveRecordPlugin("mysql", mySqldruidPlugin);
+		// 所有映射在 MappingKit 中自动化搞定
+		_MySqlMappingKit.mapping(mysql);
+		mysql.setDialect(new MysqlDialect());
+
+		me.add(mysql);
+
 		// 配置 druid 数据库连接池插件
 		DruidPlugin druidPlugin = new DruidPlugin(p.get("jdbcUrl"), p.get("user"), p.get("password"));
 		me.add(druidPlugin);
 		
 		// 配置ActiveRecord插件
-		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
+		ActiveRecordPlugin arp = new ActiveRecordPlugin("sqlServer", druidPlugin);
 		// 所有映射在 MappingKit 中自动化搞定
 		_MappingKit.mapping(arp);
 		arp.setDialect(new SqlServerDialect());
 		me.add(arp);
+		
+
 	}
 	
 	public static DruidPlugin createDruidPlugin() {
 		loadConfig();
 		
 		return new DruidPlugin(p.get("jdbcUrl"), p.get("user"), p.get("password"));
+	}
+
+	public static DruidPlugin createDruidPluginMysql() {
+		loadConfig();
+
+		return new DruidPlugin(p.get("mySqljdbcUrl"), p.get("mySqluser"), p.get("mySqlpassword"));
 	}
 	
 	/**
