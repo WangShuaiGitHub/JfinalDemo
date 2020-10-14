@@ -27,88 +27,11 @@ public class BlogController extends Controller {
     @Inject
     BlogService service;
 
-    @Inject
-    UserService userService;
-
-    @Inject
-    EntMingShiService entMingShiService;
-
-    @Inject
-    EntDcpService entDcpService;
+	@Inject
+	SyncDataService syncDataService;
 
     public void index() {
-//		Page<Blog> blocks =  service.paginate(getParaToInt(0, 1), 10);
-//		List<User> blocks =  userService.getAll();
-        List<Record> taskType = entMingShiService.getTaskType();
-        TmeTaskStandardType tmeTaskStandardTypeLast = entDcpService.getLastTypeId();
-        Map<String, String> parent = new HashMap<>();
-        Map<String, Integer> parentNumber = new HashMap<>();
-        Map<String, TmeTaskStandardType> saveTmeTaskStandardType = new HashMap<>();
-        Long lastTypeID = Long.valueOf(1);
-        if (tmeTaskStandardTypeLast != null && null != tmeTaskStandardTypeLast.getTypeId()) {
-            lastTypeID = tmeTaskStandardTypeLast.getTypeId() + 1;
-        }
-        //level 1 number define
-        int i = 0;
-        int number = 1;
-        for (Record record : taskType) {
-            String id = record.get("id");
-            String pid = record.get("pid");
-            String code = record.get("code").toString();
-            String[] levelArray = code.split("\\.");
-            int level = levelArray.length;
-            Map<String, Object> columns = record.getColumns();
-            parent.put(id, pid);
-            Long parentID = Long.valueOf(0);
-            Long typeID = lastTypeID;
-            TmeTaskStandardType parentTmeTaskType = saveTmeTaskStandardType.get(pid);
-            //如果含有说明是子节点, 反之挂入根目录
-            String ancestor = "";
-            if (!parent.containsKey(pid)) {
-                i++;
-                number = 1;
-                parentID = Long.valueOf(0);
-                typeID = lastTypeID;
-            } else {
-                number = parentNumber.get(pid) != null ? parentNumber.get(pid).intValue() + 1 : 1;
-                parentNumber.put(pid, number);
-                parentID = parentTmeTaskType.getTypeId();
-                if (null == parentTmeTaskType.getAncestors() || parentTmeTaskType.getAncestors().isEmpty()) {
-                    ancestor = parentID.toString();
-                } else {
-                    ancestor = parentTmeTaskType.getAncestors() + "," + parentID;
-                }
-            }
-
-            TmeTaskStandardType tmeTaskStandardType = new TmeTaskStandardType();
-            tmeTaskStandardType.setParentId(parentID);
-            tmeTaskStandardType.setTypeId(typeID);
-            tmeTaskStandardType.setNumber(String.valueOf(number));
-            tmeTaskStandardType.setOrderNum(number);
-            tmeTaskStandardType.setTypeLevel(level);
-            tmeTaskStandardType.setAncestors(ancestor);
-            tmeTaskStandardType.setTypeName(record.get("name"));
-            tmeTaskStandardType.setCreateBy(record.get("userId"));
-            tmeTaskStandardType.setUpdateBy(record.get("userId"));
-            tmeTaskStandardType.setCreateTime(new Date());
-            tmeTaskStandardType.setUpdateTime(new Date());
-            tmeTaskStandardType.setEntId(Long.valueOf(1));
-            tmeTaskStandardType.setIsDelete(0);
-            lastTypeID++;
-            saveTmeTaskStandardType.put(id, tmeTaskStandardType);
-            boolean result = tmeTaskStandardType.save();
-            System.out.println("类型" + record.get("name") + "同步是否成功：" + result);
-        }
-//		List<TmpTaskStandard> tmpTaskStandards = userService.getTmpTaskStandard();
-//		List<Record> test = Db.use("mysql").find("select * from tmp_task_standard");
-//		for(User user: blocks){
-//			System.out.println(user.getDeptname());
-//			System.out.println(user.getMobile());
-////			System.out.println(user.getDeptname());
-////			System.out.println(user.getDeptname());
-//		}
-//		setAttr("blogPage", blocks);
-//		render("blog.html");
+		syncDataService.sysncTmeTaskType();
     }
 
     public void add() {
