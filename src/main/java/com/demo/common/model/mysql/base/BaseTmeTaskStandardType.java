@@ -113,4 +113,12 @@ public abstract class BaseTmeTaskStandardType<M extends BaseTmeTaskStandardType<
 		return get("update_time");
 	}
 	
+	public void setOldId(java.lang.String oldId) {
+		set("old_id", oldId);
+	}
+	
+	public java.lang.String getOldId() {
+		return getStr("old_id");
+	}
+	
 }

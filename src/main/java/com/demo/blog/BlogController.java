@@ -31,7 +31,10 @@ public class BlogController extends Controller {
 	SyncDataService syncDataService;
 
     public void index() {
+        //同步企业 标准任务类型 type
 		syncDataService.sysncTmeTaskType();
+        //同步项目工序 type
+		syncDataService.sysncTmpProcessType();
     }
 
     public void add() {
